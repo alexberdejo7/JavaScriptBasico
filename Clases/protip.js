@@ -58,6 +58,8 @@ const tony = {
 
 
 const imprimePropiedad = ({nombre, seudonombre, edad, vivo, trajes}) => {
+    
+
     console.log({nombre});
     console.log({seudonombre});
     console.log({vivo});
