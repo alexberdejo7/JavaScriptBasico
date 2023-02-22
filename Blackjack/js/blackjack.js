@@ -14,7 +14,11 @@ let puntosJugador = 0,
 
 // Referencias Queri
 const btnPedir = document.querySelector('#btnPedir');
-const puntosHTML = document.querySelectorAll('small')
+const divCartasJugador = document.querySelector('#jugador-cartas');
+const divCartasPC = document.querySelector('#pc-cartas');
+const puntosHTML = document.querySelectorAll('small');
+const btnPausa = document.querySelector('#btnPausa')
+const btnNuevo = document.querySelector('#btnNuevo')
 
 
 
@@ -88,13 +92,50 @@ const getCard = () => {
 //     console.log(puntos);
 // }
     
+
 const valorCarta = (card) => {
     const valor = parseInt(card);
   
     return ( isNaN(valor) ) ? (card === 'A' ? 11 : 10) : valor;
     
   }
+ 
 
+//   TurnoComputadora
+const TurnoPC = ( puntosMinimos ) => {
+    do {
+    const card = getCard();
+
+    puntosComputadora = puntosComputadora + valorCarta ( card );
+    puntosHTML[1].innerText=puntosComputadora  //Puntaje sumado   
+    
+        // <img class="carta" src="./assets/cartas/10C.png">
+    const imgCarta = document.createElement('img');
+    imgCarta.src = `assets/cartas/${ card  }.png`; // carta
+    imgCarta.classList.add('carta');  // añadir de CSS
+    divCartasPC.append( imgCarta);
+
+        if (puntosMinimos > 21 ) {
+            break;
+        }
+
+    } while( (puntosComputadora < puntosMinimos) && (puntosMinimos <= 21));
+
+
+
+
+    setTimeout(() => {
+        
+        if( puntosComputadora === puntosMinimos) {
+            alert(' empate!')
+        } else if ( puntosMinimos > 21 ) {
+            alert('Perdiste!')
+
+        } else if ( puntosComputadora > 21 ) {
+            alert('Ganaste!')
+        }
+    }, 80 );
+}
 
 
 // const valor = valorCarta (getCard());
@@ -109,4 +150,70 @@ btnPedir.addEventListener('click', () => {
     puntosHTML[0].innerText=puntosJugador  //Puntaje sumado   
     console.log(puntosJugador);
 
+    // <img class="carta" src="./assets/cartas/10C.png">
+    const imgCarta = document.createElement('img');
+    imgCarta.src = `assets/cartas/${ card  }.png`; // carta
+    imgCarta.classList.add('carta');  // añadir de CSS
+    divCartasJugador.append( imgCarta);
+
+
+
+
+    if ( puntosJugador > 21 ) {
+        
+        btnPedir.disabled = true;
+        btnPausa.disabled = true;
+        TurnoPC( puntosJugador);
+        
+    } else if (puntosJugador === 21 ) {
+        
+        btnPedir.disabled = true;
+        btnPausa.disabled = true;
+        TurnoPC( puntosJugador);
+        alert('21, Ganaste!');
+    }
+}); 
+
+btnPausa.addEventListener('click', () => {
+    btnPedir.disabled = true;
+    btnPausa.disabled = true;
+
+    TurnoPC( puntosJugador);
+
 })
+
+
+
+btnNuevo.addEventListener('click', () => {
+    // Reset variables and UI
+    console.clear()
+    deck = [];
+    createDeck();
+    deliveredCards.clear();
+    puntosJugador = 0;
+    puntosComputadora = 0;
+    puntosHTML[0].innerText = 0;
+    puntosHTML[1].innerText = 0;
+    divCartasJugador.innerHTML = '';
+    divCartasPC.innerHTML = '';
+
+    // Enable buttons
+    btnPedir.disabled = false;
+    btnPausa.disabled = false;
+});
+
+// todo borrar
+``
+
+
+
+
+
+
+
+
+
+
+
+
+
