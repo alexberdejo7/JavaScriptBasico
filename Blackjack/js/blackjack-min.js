@@ -1,0 +1,22 @@
+
+
+
+
+
+
+
+
+
+
+(()=>{"use strict";let e=[],t=["C","D","H","S"],a=["A","J","Q","K"],l=[],r=document.querySelector("#btnPedir"),d=document.querySelector("#btnPausa"),s=document.querySelector("#btnNuevo"),n=document.querySelectorAll(".divCartas"),i=document.querySelectorAll("small"),o=(t=2)=>{e=c(),l=[];for(let a=0;a<t;a++)l.push(0);i.forEach(e=>e.innerText=0),n.forEach(e=>e.innerHTML=""),r.disabled=!1,d.disabled=!1},c=()=>{e=[];for(let l=2;l<=10;l++)for(let r of t)e.push(l+r);for(let d of t)for(let s of a)e.push(s+d);e=_.shuffle(e)},$=()=>{if(0===e.length)throw"El mazo est\xe1 vac\xedo";return e.pop()},u=e=>{let t=e.substring(0,e.length-1);return isNaN(t)?"A"===t?11:10:1*t},f=(e,t)=>(l[t]=l[t]+u(e),i[t].innerText=l[t],l[t]),b=(e,t)=>{let a=document.createElement("img");a.src=`assets/Cartas/${e}.png`,a.classList.add("carta"),n[t].append(a)},h=()=>{let[e,t]=l;setTimeout(()=>{t===e?alert("Nadie gana :("):e>21?alert("Computadora gana"):t>21?alert("Jugador Gana"):alert("Computadora Gana")},100)},g=e=>{let t=0;do{let a=$();t=f(a,l.length-1),b(a,l.length-1)}while(t<e&&e<=21);h()};r.addEventListener("click",()=>{let e=$(),t=f(e,0);b(e,0),t>21?(r.disabled=!0,d.disabled=!0,g(t)):21===t&&(r.disabled=!0,d.disabled=!0,g(t))}),d.addEventListener("click",()=>{r.disabled=!0,d.disabled=!0,g(l[0])}),s.addEventListener("click",()=>{o(),c()})})();
+
+
+
+
+
+
+
+
+
+
+
